@@ -18,8 +18,8 @@
              :source-paths ["src" "test"]
              :compiler {:output-dir "target/cljs/out"
                         :output-to "target/cljs/tests.js"
-             :main arrangement.test-runner
-             :optimizations :none}}]}
+                        :main arrangement.test-runner
+                        :optimizations :none}}]}
 
   :profiles
   {:dev {:dependencies
