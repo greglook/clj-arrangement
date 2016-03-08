@@ -10,6 +10,9 @@
   [[lein-cljsbuild "1.1.2"]
    [lein-doo "0.1.6"]]
 
+  :dependencies
+  [[org.clojure/clojure "1.7.0"]]
+
   :cljsbuild
   {:builds [{:id "test"
              :source-paths ["src" "test"]
@@ -18,13 +21,6 @@
              :main arrangement.test-runner
              :optimizations :none}}]}
 
-  :codox
-  {:metadata {:doc/format :markdown}
-   :source-uri "https://github.com/greglook/alphabase/blob/master/{filepath}#L{line}"
-   :doc-paths [""]
-   :output-path "doc/api"}
-
   :profiles
   {:dev {:dependencies
-         [[org.clojure/clojure "1.7.0"]
-          [org.clojure/clojurescript "1.7.170"]]}})
+         [[org.clojure/clojurescript "1.7.170"]]}})
