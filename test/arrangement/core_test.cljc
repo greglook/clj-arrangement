@@ -18,7 +18,7 @@
 
 (deftest number-ordering
   (is-sorted
-    -123 0.0 3.14159M 4096N))
+    -123 0.0 3.14159M #?(:clj 37/8) 4096N))
 
 
 (deftest string-ordering
@@ -48,7 +48,7 @@
 
 (deftest map-ordering
   (is-sorted
-    {:a 1 :b 2/3} {:a 1 :b 2/3 :c 'x} {:a 1 :b 4/3} {:x 1 :y 2}))
+    {:a 1 :b 2} {:a 1 :b 8.0 :c 'x} {:a 1 :b :*} {:x 1 :y 2}))
 
 
 (deftest class-ordering
@@ -59,4 +59,5 @@
         (java.util.Date. 1234567890)
         (java.util.Date. 1234567891))
      :cljs
+      ; TODO: cljs type tests
       []))
