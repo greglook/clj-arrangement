@@ -1,6 +1,7 @@
 (ns arrangement.core-test
   (:require
-    [clojure.test :refer :all]
+    #?(:clj [clojure.test :refer :all]
+       :cljs [cljs.test :refer-macros [deftest is testing]])
     [arrangement.core :as order]))
 
 
@@ -51,8 +52,11 @@
 
 
 (deftest class-ordering
-  (is-sorted
-    (java.util.Currency/getInstance "JPY")
-    (java.util.Currency/getInstance "USD")
-    (java.util.Date. 1234567890)
-    (java.util.Date. 1234567891)))
+  #?(:clj
+      (is-sorted
+        (java.util.Currency/getInstance "JPY")
+        (java.util.Currency/getInstance "USD")
+        (java.util.Date. 1234567890)
+        (java.util.Date. 1234567891))
+     :cljs
+      []))
