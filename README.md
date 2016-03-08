@@ -1,7 +1,7 @@
 Arrangement
 ===========
 
-[![Build Status](https://travis-ci.org/greglook/arrangement.svg?branch=master)](https://travis-ci.org/greglook/arrangement)
+[![Build Status](https://travis-ci.org/greglook/clj-arrangement.svg?branch=master)](https://travis-ci.org/greglook/clj-arrangement)
 
 A micro-library which provides a total-ordering comparator for Clojure values.
 
