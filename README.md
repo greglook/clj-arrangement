@@ -1,6 +1,8 @@
 Arrangement
 ===========
 
+[![Build Status](https://travis-ci.org/greglook/arrangement.svg?branch=master)](https://travis-ci.org/greglook/arrangement)
+
 A micro-library which provides a total-ordering comparator for Clojure values.
 
 ## Usage
