@@ -83,5 +83,5 @@
           (if (zero? class-diff)
             (if (instance? java.lang.Comparable a)
               (compare a b)
-              (compare (pr-str a) (pr-str b)))
+              (compare (str a) (str b)))
             class-diff))))))
