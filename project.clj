@@ -19,7 +19,7 @@
              :compiler {:output-dir "target/cljs/out"
                         :output-to "target/cljs/tests.js"
                         :main arrangement.test-runner
-                        :optimizations :none}}]}
+                        :optimizations :whitespace}}]}
 
   :profiles
   {:dev {:dependencies
