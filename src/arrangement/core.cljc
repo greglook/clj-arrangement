@@ -27,6 +27,18 @@
     (or priority (count predicates))))
 
 
+(defn type-name
+  "Get the type of the given object as a string. For Clojure, gets the name of
+  the class of the object. For ClojureScript, gets either the `name` attribute
+  or the protocol name if the `name` attribute doesn't exist."
+  [x]
+  #?(:clj (.getName (class x))
+     :cljs (let [t (type x)
+                 n (.-name t)]
+             (if (empty? n)
+               (pr-str t)
+               n))))
+
 (defn compare-seqs
   "Compare sequences using the given comparator. If any element of the
   sequences orders differently, it determines the ordering. Otherwise, if the
@@ -78,10 +90,11 @@
         (compare-seqs rank a b)
 
         :else
-        (let [class-diff (compare (.getName (class a))
-                                  (.getName (class b)))]
+        (let [class-diff (compare (type-name a)
+                                  (type-name b))]
           (if (zero? class-diff)
-            (if (instance? java.lang.Comparable a)
-              (compare a b)
-              (compare (str a) (str b)))
+            #?(:clj (if (instance? java.lang.Comparable a)
+                      (compare a b)
+                      (compare (str a) (str b)))
+               :cljs (compare a b))
             class-diff))))))
