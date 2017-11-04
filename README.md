@@ -1,9 +1,9 @@
 Arrangement
 ===========
 
-[![Build Status](https://travis-ci.org/greglook/clj-arrangement.svg?branch=master)](https://travis-ci.org/greglook/clj-arrangement)
-[![codecov.io](https://img.shields.io/codecov/c/github/multiformats/clj-multihash.svg?style=flat-square&branch=develop)](https://codecov.io/github/multiformats/clj-multihash?branch=develop)
-[![API codox](https://img.shields.io/badge/doc-API-blue.svg)](https://multiformats.github.io/clj-multihash/api/multihash.core.html)
+[![Circle CI](https://img.shields.io/circleci/project/github/greglook/clj-arrangement.svg?style=flat-square)](https://circleci.com/gh/greglook/clj-arrangement)
+[![codecov.io](https://img.shields.io/codecov/c/github/greglook/clj-arrangement.svg?style=flat-square&branch=develop)](https://codecov.io/github/greglook/clj-arrangement?branch=develop)
+[![API codox](https://img.shields.io/badge/doc-API-blue.svg)](https://greglook.github.io/clj-arrangement/api/)
 
 A micro-library which provides a total-ordering comparator for Clojure values.
 
