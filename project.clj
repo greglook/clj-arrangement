@@ -1,17 +1,19 @@
-(defproject mvxcvi/arrangement "1.1.0"
+(defproject mvxcvi/arrangement "1.1.1-SNAPSHOT"
   :description "Total-order comparator for Clojure(Script)."
   :url "https://github.com/greglook/clj-arrangement"
   :license {:name "Public Domain"
             :url "http://unlicense.org/"}
 
   :deploy-branches ["master"]
+  :pedantic? :abort
+
+  :aliases
+  {"cljs-test" ["doo" "phantom" "test" "once"]
+   "coverage" ["with-profile" "+test,+coverage" "cloverage"]}
 
   :plugins
-  [[lein-cljsbuild "1.1.2"]
-   [lein-doo "0.1.6"]]
-
-  :dependencies
-  [[org.clojure/clojure "1.7.0"]]
+  [[lein-cljsbuild "1.1.7"]
+   [lein-doo "0.1.8" :exclusions [org.clojure/clojurescript]]]
 
   :cljsbuild
   {:builds [{:id "test"
@@ -22,5 +24,11 @@
                         :optimizations :whitespace}}]}
 
   :profiles
-  {:dev {:dependencies
-         [[org.clojure/clojurescript "1.7.170"]]}})
+  {:dev
+   {:dependencies
+    [[org.clojure/clojure "1.8.0"]
+     [org.clojure/clojurescript "1.9.946"]]}
+
+   :coverage
+   {:plugins [[lein-cloverage "1.0.10"]]
+    :dependencies [[org.clojure/tools.reader "1.1.0"]]}})
