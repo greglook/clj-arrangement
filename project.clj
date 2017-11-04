@@ -23,6 +23,11 @@
                         :main arrangement.test-runner
                         :optimizations :whitespace}}]}
 
+  :codox
+  {:metadata {:doc/format :markdown}
+   :source-uri "https://github.com/greglook/clj-arrangement/blob/master/{filepath}#L{line}"
+   :output-path "target/doc/api"}
+
   :profiles
   {:dev
    {:dependencies
