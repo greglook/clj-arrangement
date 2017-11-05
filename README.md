@@ -2,7 +2,7 @@ Arrangement
 ===========
 
 [![Circle CI](https://img.shields.io/circleci/project/github/greglook/clj-arrangement.svg?style=flat-square)](https://circleci.com/gh/greglook/clj-arrangement)
-[![codecov.io](https://img.shields.io/codecov/c/github/greglook/clj-arrangement.svg?style=flat-square&branch=develop)](https://codecov.io/github/greglook/clj-arrangement?branch=develop)
+[![codecov.io](https://img.shields.io/codecov/c/github/greglook/clj-arrangement.svg?style=flat-square&branch=master)](https://codecov.io/github/greglook/clj-arrangement)
 [![API codox](https://img.shields.io/badge/doc-API-blue.svg)](https://greglook.github.io/clj-arrangement/api/)
 
 A micro-library which provides a total-ordering comparator for Clojure values.
