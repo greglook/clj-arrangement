@@ -2,32 +2,43 @@
   "This namespace provides a total-ordering comparator for Clojure values.")
 
 
+(def ^:private type-predicates
+  "Ordered sequence of predicates to test to determine the relative ordering of
+  various data types."
+  [nil?
+   false?
+   true?
+   number?
+   char?
+   string?
+   keyword?
+   symbol?
+   list?
+   vector?
+   set?
+   map?])
+
+
 (defn- type-priority
-  "Determines a numeric priority for the given value based on its general type:
-
-  - `nil`
-  - `false`
-  - `true`
-  - numbers
-  - characters
-  - strings
-  - keywords
-  - symbols
-  - lists
-  - vectors
-  - sets
-  - maps
-  - all other types"
+  "Determines a numeric priority for the given value based on its general
+  type. See `type-predicates` for the ordering."
   [x]
-  (let [predicates [nil? false? true? number? char? string?
-                    keyword? symbol? list? vector? set? map?]
-        priority (->> predicates
-                      (map vector (range))
-                      (some (fn [[i p]] (when (p x) i))))]
-    (or priority (count predicates))))
+  (loop [i 0]
+    (if (< i (count type-predicates))
+      (let [p (nth type-predicates i)]
+        (if (p x)
+          i
+          (recur (inc i))))
+      i)))
 
 
-(defn type-name
+(defn- directly-comparable?
+  "True if the values in a certain priority class are directly comparable."
+  [p]
+  (<= 3 p 7))
+
+
+(defn- type-name
   "Get the type of the given object as a string. For Clojure, gets the name of
   the class of the object. For ClojureScript, gets either the `name` attribute
   or the protocol name if the `name` attribute doesn't exist."
@@ -39,13 +50,25 @@
                (pr-str t)
                n))))
 
-(defn compare-seqs
+
+(declare rank)
+
+
+(defn- compare-seqs
   "Compare sequences using the given comparator. If any element of the
   sequences orders differently, it determines the ordering. Otherwise, if the
   prefix matches, the longer sequence sorts later."
-  [order xs ys]
-  (or (first (remove zero? (map order xs ys)))
-      (- (count xs) (count ys))))
+  [xs ys]
+  (loop [xs xs
+         ys ys]
+    (if (and (seq xs) (seq ys))
+      (let [x (first xs)
+            y (first ys)
+            o (rank x y)]
+        (if (zero? o)
+          (recur (next xs) (next ys))
+          o))
+      (- (count xs) (count ys)))))
 
 
 (defn rank
@@ -64,7 +87,7 @@
   values are ordered by print representation. This has the default behavior of
   ordering by hash code if the type does not implement a custom print format."
   [a b]
-  (if (= a b)
+  (if (identical? a b)
     0
     (let [pri-a (type-priority a)
           pri-b (type-priority b)]
@@ -72,26 +95,25 @@
         (< pri-a pri-b) -1
         (> pri-a pri-b)  1
 
-        (some #(% a) #{number? char? string? keyword? symbol?})
+        (directly-comparable? pri-a)
         (compare a b)
 
         (map? a)
-        (compare-seqs rank
-          (sort-by first rank (seq a))
-          (sort-by first rank (seq b)))
+        (compare-seqs
+          (sort-by key rank (seq a))
+          (sort-by key rank (seq b)))
 
         (set? a)
         (let [size-diff (- (count a) (count b))]
           (if (zero? size-diff)
-            (compare-seqs rank a b)
+            (compare-seqs a b)
             size-diff))
 
         (coll? a)
-        (compare-seqs rank a b)
+        (compare-seqs a b)
 
         :else
-        (let [class-diff (compare (type-name a)
-                                  (type-name b))]
+        (let [class-diff (compare (type-name a) (type-name b))]
           (if (zero? class-diff)
             #?(:clj (if (instance? java.lang.Comparable a)
                       (compare a b)
