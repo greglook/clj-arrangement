@@ -5,15 +5,18 @@
             :url "http://unlicense.org/"}
 
   :deploy-branches ["master"]
-  :pedantic? :abort
+  ;:pedantic? :abort
 
   :aliases
-  {"cljs-test" ["doo" "phantom" "test" "once"]
+  {"clj:test" ["do" ["check"] ["test"]]
+   "cljs:check" ["with-profile" "+doo" "cljsbuild" "once"]
+   "cljs:repl" ["run" "-m" "clojure.main" "dev/cljs_repl.clj"]
+   "cljs:test" ["doo" "rhino" "test" "once"]
    "coverage" ["with-profile" "+test,+coverage" "cloverage"]}
 
   :plugins
   [[lein-cljsbuild "1.1.7"]
-   [lein-doo "0.1.8" :exclusions [org.clojure/clojurescript]]]
+   [lein-doo "0.1.11"]]
 
   :cljsbuild
   {:builds [{:id "test"
@@ -31,9 +34,14 @@
   :profiles
   {:dev
    {:dependencies
-    [[org.clojure/clojure "1.8.0"]
-     [org.clojure/clojurescript "1.9.946"]]}
+    [[org.clojure/clojure "1.10.0"]
+     [org.clojure/clojurescript "1.10.439"]
+     [criterium "0.4.4"]]}
 
    :coverage
-   {:plugins [[lein-cloverage "1.0.10"]]
-    :dependencies [[org.clojure/tools.reader "1.1.0"]]}})
+   {:plugins [[lein-cloverage "1.1.0"]]
+    :dependencies [[org.clojure/tools.reader "1.1.0"]]}
+
+   :doo
+   {:dependencies
+    [[doo "0.1.11"]]}})
