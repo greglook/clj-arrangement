@@ -106,7 +106,7 @@
         (set? a)
         (let [size-diff (- (count a) (count b))]
           (if (zero? size-diff)
-            (compare-seqs a b)
+            (compare-seqs (sort a) (sort b))
             size-diff))
 
         (coll? a)
