@@ -43,7 +43,7 @@
 
 (deftest set-ordering
   (is-sorted
-    #{:one} #{:two} #{:zzz} #{:one :two} #{:one :zzz}))
+    #{:one} #{:two} #{:zzz} #{:one :two} #{:one :zzz} #{:a :e :f} #{:b :c :d}))
 
 
 (deftest map-ordering

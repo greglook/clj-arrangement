@@ -59,16 +59,14 @@
   sequences orders differently, it determines the ordering. Otherwise, if the
   prefix matches, the longer sequence sorts later."
   [xs ys]
-  (loop [xs xs
-         ys ys]
-    (if (and (seq xs) (seq ys))
-      (let [x (first xs)
-            y (first ys)
-            o (rank x y)]
-        (if (zero? o)
-          (recur (next xs) (next ys))
-          o))
-      (- (count xs) (count ys)))))
+  (if (and (seq xs) (seq ys))
+    (let [x (first xs)
+          y (first ys)
+          o (rank x y)]
+      (if (zero? o)
+        (recur (next xs) (next ys))
+        o))
+    (- (count xs) (count ys))))
 
 
 (defn rank
@@ -106,7 +104,7 @@
         (set? a)
         (let [size-diff (- (count a) (count b))]
           (if (zero? size-diff)
-            (compare-seqs a b)
+            (compare-seqs (sort a) (sort b))
             size-diff))
 
         (coll? a)
