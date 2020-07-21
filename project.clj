@@ -34,14 +34,14 @@
   :profiles
   {:dev
    {:dependencies
-    [[org.clojure/clojure "1.10.0"]
-     [org.clojure/clojurescript "1.10.439"]
-     [org.clojure/test.check "0.9.0"]
-     [criterium "0.4.4"]]}
+    [[org.clojure/clojure "1.10.1"]
+     [org.clojure/clojurescript "1.10.773"]
+     [org.clojure/test.check "1.1.0"]
+     [criterium "0.4.6"]]}
 
    :coverage
    {:plugins [[lein-cloverage "1.1.0"]]
-    :dependencies [[org.clojure/tools.reader "1.1.0"]]}
+    :dependencies [[org.clojure/tools.reader "1.3.2"]]}
 
    :doo
    {:dependencies
