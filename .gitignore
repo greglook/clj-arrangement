@@ -3,7 +3,10 @@
 /checkouts
 /.lein-*
 /.nrepl-port
+/.cljs_node_repl
+/node_modules
 pom.xml
 pom.xml.asc
+package-lock.json
 *.jar
 *.class
