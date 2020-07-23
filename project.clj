@@ -1,11 +1,10 @@
-(defproject mvxcvi/arrangement "1.2.1-SNAPSHOT"
+(defproject mvxcvi/arrangement "1.2.1"
   :description "Total-order comparator for Clojure(Script)."
   :url "https://github.com/greglook/clj-arrangement"
   :license {:name "Public Domain"
             :url "http://unlicense.org/"}
 
   :deploy-branches ["master"]
-  ;:pedantic? :abort
 
   :aliases
   {;"cljs:repl" ["run" "-m" "clojure.main" "dev/cljs_repl.clj"]
