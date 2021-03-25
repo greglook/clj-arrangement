@@ -37,17 +37,39 @@
 
 (deftest sequence-ordering
   (is-sorted
-    '(1 2 3) [1 2 3] [1 2 3 4] [1 2 4] [1 \2 "3"] [\1] #{\1}))
+    '(1 2 3)
+    [1 2 3]
+    [1 2 3 4]
+    [1 2 4]
+    [1 \2 "3"]
+    [\1]))
 
 
 (deftest set-ordering
   (is-sorted
-    #{:one} #{:two} #{:zzz} #{:one :two} #{:one :zzz} #{:a :e :f} #{:b :c :d}))
+    #{:one}
+    #{:two}
+    #{:zzz}
+    #{:one :two}
+    #{:one :zzz}
+    #{:a :e :f}
+    #{:b :c :d}))
 
 
 (deftest map-ordering
   (is-sorted
-    {:a 1 :b 2} {:a 1 :b 8.0 :c 'x} {:a 1 :b :*} {:x 1 :y 2}))
+    {:a 1}
+    {:a 2}
+    {:b 1})
+  (is-sorted
+    {:x 1}
+    {:a 1, :q 2}
+    {:a 1, :b 2, :c 3})
+  (is-sorted
+    {:a 1, :b 2}
+    {:a 1, :b :*}
+    {:x 1, :y 2}
+    {:a 1, :b 8.0, :c 'x}))
 
 
 #?(:clj

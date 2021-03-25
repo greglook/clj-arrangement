@@ -80,13 +80,13 @@
 
   Sequential collections are sorted by comparing their elements one at a time.
   If the sequences have equal leading elements, the longer one is ordered later.
-  Sets are compared by cardinality first, then elements in sorted order.
-  Finally, maps are compared by their entries in sorted order of their keys.
+  Sets and maps are compared by cardinality first, then elements in sorted
+  order.
 
-  All other types are sorted by class name. If the class implements
-  `Comparable`, the instances of it are compared using `compare`. Otherwise, the
-  values are ordered by print representation. This has the default behavior of
-  ordering by hash code if the type does not implement a custom print format."
+  All other types are sorted by type name. If the type implements `Comparable`,
+  the instances of it are compared using `compare`. Otherwise, the values are
+  ordered by print representation. This has the default behavior of ordering by
+  hash code if the type does not implement a custom print format."
   [a b]
   (if (identical? a b)
     0
@@ -99,15 +99,18 @@
         (directly-comparable? pri-a)
         (compare a b)
 
-        (map? a)
-        (compare-seqs
-          (sort-by key rank (seq a))
-          (sort-by key rank (seq b)))
-
         (set? a)
         (let [size-diff (- (count a) (count b))]
           (if (zero? size-diff)
-            (compare-seqs (sort a) (sort b))
+            (compare-seqs (sort rank a) (sort rank b))
+            size-diff))
+
+        (map? a)
+        (let [size-diff (- (count a) (count b))]
+          (if (zero? size-diff)
+            (compare-seqs
+              (sort-by key rank (seq a))
+              (sort-by key rank (seq b)))
             size-diff))
 
         (coll? a)
