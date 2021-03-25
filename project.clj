@@ -1,4 +1,4 @@
-(defproject mvxcvi/arrangement "1.2.1"
+(defproject mvxcvi/arrangement "2.0.0-SNAPSHOT"
   :description "Total-order comparator for Clojure(Script)."
   :url "https://github.com/greglook/clj-arrangement"
   :license {:name "Public Domain"
@@ -14,16 +14,16 @@
   :profiles
   {:dev
    {:dependencies
-    [[org.clojure/clojure "1.10.1"]
+    [[org.clojure/clojure "1.10.3"]
      [org.clojure/clojurescript "1.10.773"]
      [org.clojure/test.check "1.1.0"]
      [criterium "0.4.6"]]}
 
    :kaocha
    {:dependencies
-    [[lambdaisland/kaocha "1.0.641"]
+    [[lambdaisland/kaocha "1.0.829"]
      [lambdaisland/kaocha-cljs "0.0-71"]]}
 
    :coverage
-   {:plugins [[lein-cloverage "1.1.2"]]
-    :dependencies [[org.clojure/tools.reader "1.3.2"]]}})
+   {:plugins [[lein-cloverage "1.2.2"]]
+    :dependencies [[org.clojure/tools.reader "1.3.5"]]}})

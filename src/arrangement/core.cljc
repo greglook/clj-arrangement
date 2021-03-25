@@ -1,5 +1,8 @@
 (ns arrangement.core
-  "This namespace provides a total-ordering comparator for Clojure values.")
+  "This namespace provides a total-ordering comparator for Clojure values."
+  (:require
+    ;; https://github.com/cloverage/cloverage/issues/312
+    [clojure.core]))
 
 
 (def ^:private type-predicates
@@ -113,7 +116,7 @@
         :else
         (let [class-diff (compare (type-name a) (type-name b))]
           (if (zero? class-diff)
-            #?(:clj (if (instance? java.lang.Comparable a)
+            #?(:clj (if (instance? Comparable a)
                       (compare a b)
                       (compare (str a) (str b)))
                :cljs (compare a b))
