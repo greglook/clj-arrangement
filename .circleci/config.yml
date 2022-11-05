@@ -4,7 +4,7 @@ version: 2.1
 executors:
   clojure:
     docker:
-      - image: circleci/clojure:openjdk-11-lein-2.9.1
+      - image: cimg/clojure:1.11-openjdk-11.0-node
     working_directory: ~/repo
 
 
@@ -17,10 +17,10 @@ jobs:
       - run:
           name: Install cljstyle
           environment:
-            CLJSTYLE_VERSION: 0.13.0
+            CLJSTYLE_VERSION: 0.15.0
           command: |
-            wget https://github.com/greglook/cljstyle/releases/download/${CLJSTYLE_VERSION}/cljstyle_${CLJSTYLE_VERSION}_linux.tar.gz
-            tar -xzf cljstyle_${CLJSTYLE_VERSION}_linux.tar.gz
+            wget https://github.com/greglook/cljstyle/releases/download/${CLJSTYLE_VERSION}/cljstyle_${CLJSTYLE_VERSION}_linux.zip
+            unzip cljstyle_${CLJSTYLE_VERSION}_linux.zip
       - run:
           name: Check source formatting
           command: "./cljstyle check --report"
@@ -32,7 +32,7 @@ jobs:
       - run:
           name: Install clj-kondo
           environment:
-            CLJ_KONDO_VERSION: 2019.12.14
+            CLJ_KONDO_VERSION: 2022.11.02
           command: |
             wget https://github.com/borkdude/clj-kondo/releases/download/v${CLJ_KONDO_VERSION}/clj-kondo-${CLJ_KONDO_VERSION}-linux-amd64.zip
             unzip clj-kondo-${CLJ_KONDO_VERSION}-linux-amd64.zip
@@ -48,31 +48,24 @@ jobs:
           keys:
             - v1-test-clj-{{ checksum "project.clj" }}
             - v1-test-clj-
-      - run: lein deps
-      - run: lein check
-      - run: lein kaocha unit-clj
+      - run:
+          name: Fetch dependencies
+          command: lein with-profile +test,+kaocha deps
       - save_cache:
           key: v1-test-clj-{{ checksum "project.clj" }}
           paths:
             - ~/.m2
+      - run: lein check
+      - run: lein kaocha unit-clj
 
   test-cljs:
     executor: clojure
-    environment:
-      QT_QPA_PLATFORM: offscreen
     steps:
       - checkout
       - restore_cache:
           keys:
             - v1-test-cljs-{{ checksum "project.clj" }}
             - v1-test-cljs-
-      - run:
-          name: Install Javascript runtime
-          command: |
-            curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-            sudo apt-get update
-            sudo apt-get install -y nodejs
-            npm install ws
       - run: lein kaocha unit-cljs
       - save_cache:
           key: v1-test-cljs-{{ checksum "project.clj" }}
@@ -100,8 +93,19 @@ jobs:
           path: target/coverage
           destination: coverage
       - run:
-          name: Publish Coverage
-          command: 'bash <(curl -s https://codecov.io/bash) -f target/coverage/codecov.json'
+          name: Install codecov
+          command: |
+            sudo apt-get update && sudo apt-get install gpg
+            curl https://keybase.io/codecovsecurity/pgp_keys.asc | gpg --no-default-keyring --keyring trustedkeys.gpg --import
+            curl -Os https://uploader.codecov.io/latest/linux/codecov
+            curl -Os https://uploader.codecov.io/latest/linux/codecov.SHA256SUM
+            curl -Os https://uploader.codecov.io/latest/linux/codecov.SHA256SUM.sig
+            gpgv codecov.SHA256SUM.sig codecov.SHA256SUM
+            shasum -a 256 -c codecov.SHA256SUM
+            chmod +x codecov
+      - run:
+          name: Publish coverage report
+          command: './codecov -f target/coverage/codecov.json'
 
 
 # Workflow definitions

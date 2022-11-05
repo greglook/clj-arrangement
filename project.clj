@@ -1,4 +1,4 @@
-(defproject mvxcvi/arrangement "2.0.1-SNAPSHOT"
+(defproject mvxcvi/arrangement "2.1.0-SNAPSHOT"
   :description "Total-order comparator for Clojure(Script)."
   :url "https://github.com/greglook/clj-arrangement"
   :license {:name "Public Domain"
