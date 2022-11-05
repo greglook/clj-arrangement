@@ -25,5 +25,5 @@
      [lambdaisland/kaocha-cljs "0.0-71"]]}
 
    :coverage
-   {:plugins [[lein-cloverage "1.2.2"]]
+   {:plugins [[lein-cloverage "1.2.4"]]
     :dependencies [[org.clojure/tools.reader "1.3.5"]]}})

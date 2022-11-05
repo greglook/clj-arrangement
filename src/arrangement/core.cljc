@@ -1,8 +1,5 @@
 (ns arrangement.core
-  "This namespace provides a total-ordering comparator for Clojure values."
-  (:require
-    ;; https://github.com/cloverage/cloverage/issues/312
-    [clojure.core]))
+  "This namespace provides a total-ordering comparator for Clojure values.")
 
 
 (def ^:private type-predicates
