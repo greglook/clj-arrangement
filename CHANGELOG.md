@@ -10,6 +10,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ...
 
 
+## [2.1.0] - 2022-11-05
+
+### Changed
+- Update many dependencies to latest versions.
+- Remove a workaround for an older Cloverage bug.
+  [#5](https://github.com/greglook/clj-arrangement/pull/5)
+
+
 ## [2.0.0] - 2021-03-24
 
 This is release changes how sets and maps are ranked, which is why it's getting
@@ -54,9 +62,10 @@ you should evaluate how the changes will impact you.
 Initial project release.
 
 
-[Unreleased]: https://github.com/greglook/blocks/compare/2.0.0...HEAD
-[2.0.0]: https://github.com/greglook/blocks/compare/1.2.1...2.0.0
-[1.2.1]: https://github.com/greglook/blocks/compare/1.2.0...1.2.1
-[1.2.0]: https://github.com/greglook/blocks/compare/1.1.1...1.2.0
-[1.1.1]: https://github.com/greglook/blocks/compare/1.1.0...1.1.1
-[1.1.0]: https://github.com/greglook/blocks/compare/1.0.0...1.1.0
+[Unreleased]: https://github.com/greglook/clj-arrangement/compare/2.1.0...HEAD
+[2.1.0]: https://github.com/greglook/clj-arrangement/compare/2.0.0...2.1.0
+[2.0.0]: https://github.com/greglook/clj-arrangement/compare/1.2.1...2.0.0
+[1.2.1]: https://github.com/greglook/clj-arrangement/compare/1.2.0...1.2.1
+[1.2.0]: https://github.com/greglook/clj-arrangement/compare/1.1.1...1.2.0
+[1.1.1]: https://github.com/greglook/clj-arrangement/compare/1.1.0...1.1.1
+[1.1.0]: https://github.com/greglook/clj-arrangement/compare/1.0.0...1.1.0
